@@ -8,7 +8,7 @@ function Cell(props) {
     const [turn, setTurn] = useState('');
 
     const onClick = () => {
-        if(!clicked) {
+        if(!clicked && !props.getGameEnded()) {
             setClicked(true);
             setTurn(props.getTurn());
             props.toggleTurn();
@@ -18,7 +18,7 @@ function Cell(props) {
     }
 
     return (
-        <div className={clicked ? 'cell no-hover' : 'cell'} onClick={onClick}>
+        <div className={(clicked || props.getGameEnded()) ? 'cell no-hover' : 'cell'} onClick={onClick}>
             { clicked && <img src={turn === "Circle" ? Circle : Cross} alt={turn}/> }
         </div>
     );

@@ -6,10 +6,6 @@ function Board() {
     const [turn, setTurn] = useState('Circle');
     const [moves, setMoves] = useState({'Circle': new Set(), 'Cross': new Set()});
 
-    const getTurn = () => {
-        return turn;
-    }
-
     const toggleTurn = () => {
         setTurn(turn === 'Circle' ? 'Cross' : 'Circle');
     }
@@ -19,8 +15,6 @@ function Board() {
     const checkWinner = () => {
         let winPatterns = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
         let cur = true;
-
-        console.log(moves)
 
         for(const pattern of winPatterns) {
             cur = true;
@@ -64,7 +58,7 @@ function Board() {
 
     const cells = Array(9);
     for(var i = 0; i < 9; i++)
-        cells[i] = <Cell toggleTurn={toggleTurn} getTurn={getTurn} addMove={addMove} index={i} key={i} />;
+        cells[i] = <Cell toggleTurn={toggleTurn} getTurn={() => turn} addMove={addMove} getGameEnded={() => gameEnded} index={i} key={i} />;
 
     return (
         <div className='board'>
