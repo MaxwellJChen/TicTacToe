@@ -1,0 +1,17 @@
+.cell {
+    background-color: white;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.cell:not(.no-hover):hover {
+    background-color: lightyellow;
+}
+
+.cell img {
+    height: 90%;
+    width: 90%;
+    margin: 0 auto;
+}

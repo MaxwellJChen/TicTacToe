@@ -1,0 +1,16 @@
+.board {
+    background-color: black;
+    width: 620px;
+    height: 620px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 10px 10px;
+  }
