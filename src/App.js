@@ -1,5 +1,4 @@
-import './App.css';
-import Board from './components/Board.js'
+import Board from './Components/Board.js'
 
 function App() {
   return (

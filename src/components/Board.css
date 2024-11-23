@@ -1,16 +1,56 @@
-.board {
-    background-color: black;
-    width: 620px;
-    height: 620px;
-
-    position: absolute;
+#container {
+	position: absolute;
     top: 50%;
     left: 50%;
-    margin-right: -50%;
     transform: translate(-50%, -50%);
 
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    gap: 10px 10px;
-  }
+	display: flex;
+	flex-direction: column;
+}
+
+#message-container {
+	margin: 10px 0;
+	height: 60px;
+}
+
+.message {
+	background-color: aliceblue;
+	text-align: center;
+	line-height: 60px;
+	font-size: 40px;
+	border-radius: 10px;
+}
+
+.board {
+	background-color: black;
+	border-color: white;
+
+    display: grid;
+	gap: 10px 10px;
+	grid-template-columns: repeat(3, 1fr);
+
+}
+
+
+#restart-container {
+	width: 100%;
+	height: 60px;
+	margin: 10px 0;
+}
+
+.restart {
+	background-color: aliceblue;
+	width: 100%;
+	height: 100%;
+	border: none;
+	font-size: 40px;
+	border-radius: 10px;
+}
+
+.restart:hover {
+	background-color: rgb(221, 239, 255);
+}
+
+.restart:active {
+	background-color: rgb(201, 230, 255);
+}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Cell.css';
-import Circle from '../assets/Circle.png';
-import Cross from '../assets/Cross.png';
+import Circle from '../Assets/Circle.png';
+import Cross from '../Assets/Cross.png';
 
 function Cell(props) {
     const [clicked, setClicked] = useState(false);
@@ -10,9 +10,7 @@ function Cell(props) {
     const onClick = () => {
         if(!clicked && !props.getGameEnded()) {
             setClicked(true);
-            setTurn(props.getTurn());
-            props.toggleTurn();
-
+            setTurn(props.getCurTurn());
             props.addMove(props.index);
         }
     }
