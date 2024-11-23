@@ -1,9 +1,10 @@
-# TicTacToe
-Practice project making tic tac toe with React
+# Tic Tac Toe
+Practice project making tic tac toe with React. Hosted at https://monumental-sundae-a24511.netlify.app/.
 
-- 9 GridCells arranged like TicTacToe board
-    - GridCells highlight when hovered over
-    - When clicks, GridCell will display either circle or X depending on parity of move
-- Detect when game is over by iterating through rows, columns, and diagonals
-    - When one player wins, will display the correct line covering the correct GridCells
-- Layer GridCells over black background to create illusion of 4 lines separating them
+- 9 cells arranged in tic tac toe board
+    - Highlight when hovered over
+    - Display either circle or cross depending on order of moves (circle goes first)
+- Detect when game is over by iterating through possible in patterns
+    - Display line through winning cells
+    - Display message indicating game is over
+    - Restart the game by resetting moves and cell container
