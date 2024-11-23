@@ -4,6 +4,7 @@ import Circle from '../Assets/Circle.png';
 import Cross from '../Assets/Cross.png';
 
 function Cell(props) {
+    // Whether the cell has been clicked
     const [clicked, setClicked] = useState(false);
     const [turn, setTurn] = useState('');
 

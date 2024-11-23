@@ -3,46 +3,74 @@ import './Board.css';
 import Cell from './Cell.js';
 
 function Board() {
+    // Record moves by each side
     const [moves, setMoves] = useState({'Circle': new Set(), 'Cross': new Set()});
+
+    // Record variable used to toggle key for board and reset cells
     const [resetCount, setResetCount] = useState(0);
+
+    // Check whether game has been drawn every time moves are updated
     const gameDrawn = useMemo(() => moves['Circle'].size + moves['Cross'].size === 9, [moves]);
+
+    // Check whether game has been won by iterating through patterns every time moves are updated
     const checkGameWon = () => {
         const getPrevTurn = () => moves['Circle'].size > moves['Cross'].size ? 'Circle' : 'Cross';
 
         let winPatterns = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
-        for(const pattern of winPatterns) {
+        for(let i = 1; i < 9; i++) {
+            let pattern = winPatterns[i - 1];
             let cur = true;
             
-            for(let i = 0; i < 3; i++) {
-                if(!moves[getPrevTurn()].has(pattern[i])) {
+            for(let j = 0; j < 3; j++) {
+                if(!moves[getPrevTurn()].has(pattern[j])) {
                     cur = false;
                     break;
                 }
             }
 
             if(cur)
-                return true;
+                return i;
         }
 
-        return false;
+        return 0;
     }
     const gameWon = useMemo(checkGameWon, [moves]);
+
+    const lineConfigs = {
+        1: ['hor-line', '165px', '0px'],
+        2: ['hor-line', '355px', '0px'],
+        3: ['hor-line', '545px', '0px'],
+        4: ['vert-line', '80px', '85px'],
+        5: ['vert-line', '80px', '275px'],
+        6: ['vert-line', '80px', '465px'],
+        7: ['neg-diag', '-25px', '275px'],
+        8: ['pos-diag', '-25px', '275px'],
+    }
+
+    // Get current turn based on count of moves for each side
     const getCurTurn = () => moves['Circle'].size > moves['Cross'].size ? 'Cross' : 'Circle';
+
+    // Add a new move in child cell
     const addMove = (index) => {
         var newMoves = structuredClone(moves);
         newMoves[getCurTurn()].add(index);
         setMoves(newMoves);
     }
+
+    // Store 9 child cells in an array
     var cells = Array(9);
     for(let i = 0; i < 9; i++)
         cells[i] = <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameDrawn || gameWon} index={i} key={i} />;
 
+    // Get the final game message
     const getEndMessage = () => {
-        if(gameDrawn)
-            return 'Draw';  
-        else if(gameWon)
+        if(gameWon)
             return `${moves['Circle'].size > moves['Cross'].size ? 'Circle' : 'Cross'} Wins`
+        else if(gameDrawn)
+            return 'Draw';
     }
+
+    // Reset the game's move and div key
     const resetGame = () => {
         setMoves({'Circle': new Set(), 'Cross': new Set()});
         setResetCount((resetCount + 1) % 2);
@@ -50,7 +78,7 @@ function Board() {
 
     return (
         <div id='container'>
-            <div id='message-container'>
+            <div id='mini-container'>
                 <div className='message'>{getEndMessage()}</div>
             </div>
 
@@ -58,35 +86,13 @@ function Board() {
                 {cells.map(cell => cell)}
             </div>
 
-            <div id='restart-container' onClick={resetGame}>
-                <button className='restart' hidden={!gameDrawn && !gameWon}>Restart</button>
+            {gameWon !== 0 && <div className={`line ${lineConfigs[gameWon][0]}`} style={{top: lineConfigs[gameWon][1], left: lineConfigs[gameWon][2]}} />}
+
+            <div id='mini-container' onClick={resetGame}>
+                <button className='message' hidden={!gameDrawn && !gameWon} id='restart'>Restart</button>
             </div>
         </div>
     );
 }
 
 export default Board;
-
-// const [cells, setCells] = useState([
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded || gameWon} index={0} key={0} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded || gameWon} index={1} key={1} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded || gameWon} index={2} key={2} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded || gameWon} index={3} key={3} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded || gameWon} index={4} key={4} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded || gameWon} index={5} key={5} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded || gameWon} index={6} key={6} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded || gameWon} index={7} key={7} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded || gameWon} index={8} key={8} />
-// ])
-
-// setCells([
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded} index={0} key={0 + resetCount * 9} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded} index={1} key={1 + resetCount * 9} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded} index={2} key={2 + resetCount * 9} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded} index={3} key={3 + resetCount * 9} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded} index={4} key={4 + resetCount * 9} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded} index={5} key={5 + resetCount * 9} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded} index={6} key={6 + resetCount * 9} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded} index={7} key={7 + resetCount * 9} />,
-//     <Cell getCurTurn={getCurTurn} addMove={addMove} getGameEnded={() => gameEnded} index={8} key={8 + resetCount * 9} />
-// ]);

@@ -8,17 +8,28 @@
 	flex-direction: column;
 }
 
-#message-container {
+#mini-container {
 	margin: 10px 0;
 	height: 60px;
 }
 
 .message {
 	background-color: aliceblue;
+	border-radius: 10px;
+	border: none;
+	width: 100%;
+
 	text-align: center;
 	line-height: 60px;
 	font-size: 40px;
-	border-radius: 10px;
+}
+
+#restart:hover {
+	background-color: rgb(221, 239, 255);
+}
+
+#restart:active {
+	background-color: rgb(201, 230, 255);
 }
 
 .board {
@@ -28,29 +39,38 @@
     display: grid;
 	gap: 10px 10px;
 	grid-template-columns: repeat(3, 1fr);
-
 }
 
+.line {
+	background-color: rgb(235, 243, 250);
+	/* box-shadow: 0px 0px 5px 2px rgb(163, 212, 255); */
+	/* opacity: 0.7; */
 
-#restart-container {
-	width: 100%;
-	height: 60px;
-	margin: 10px 0;
+	position: absolute;
+	z-index: 1;
 }
 
-.restart {
-	background-color: aliceblue;
-	width: 100%;
-	height: 100%;
-	border: none;
-	font-size: 40px;
-	border-radius: 10px;
+.vert-line {
+
+	width: 10px;
+	height: 560px;
 }
 
-.restart:hover {
-	background-color: rgb(221, 239, 255);
+.hor-line {
+	width: 560px;
+	height: 10px;
 }
 
-.restart:active {
-	background-color: rgb(201, 230, 255);
+.neg-diag {
+	width: 10px;
+	height: 770px;
+
+	transform: rotateY(0deg) rotate(-45deg);
+}
+
+.pos-diag {
+	width: 10px;
+	height: 770px;
+
+	transform: rotateY(0deg) rotate(45deg);
 }

@@ -7,7 +7,7 @@
 }
 
 .cell:not(.no-hover):hover {
-    background-color: lightyellow;
+    background-color: aliceblue;
 }
 
 .cell img {
