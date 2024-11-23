@@ -1,5 +1,5 @@
 # Tic Tac Toe
-Practice project making tic tac toe with React. Hosted at https://monumental-sundae-a24511.netlify.app/.
+Practice project making tic tac toe with React. Hosted at https://monumental-sundae-a24511.netlify.app/. Best viewed on computer due to fixed size board and other elements.
 
 - 9 cells arranged in tic tac toe board
     - Highlight when hovered over
